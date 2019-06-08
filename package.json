@@ -33,6 +33,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^2.0.1",
     "redux-logger": "^3.0.6"
   }
 }
