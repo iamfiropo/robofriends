@@ -9,13 +9,13 @@ import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import { searchRobots, requestRobots } from './reducers';
 import 'tachyons';
-import ghpages from 'gh-pages';
+// import { ghpages } from 'gh-pages';
 
 const logger = createLogger();
 
-ghpages.publish('dist', { add: true }, (error) => {
-    throw error;
-})
+// ghpages.publish('dist', { add: true }, (error) => {
+//     throw error;
+// })
 
 const rootReducer = combineReducers({ searchRobots, requestRobots })
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
