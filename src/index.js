@@ -2,23 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { createLogger } from 'redux-logger';
-import thunkMiddleware from 'redux-thunk';
+import logger from 'redux-logger';
+// import thunkMiddleware from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import { searchRobots, requestRobots } from './reducers';
 import 'tachyons';
-// import { ghpages } from 'gh-pages';
+import{ rootSaga } from './sagas';
 
-const logger = createLogger();
-
-// ghpages.publish('dist', { add: true }, (error) => {
-//     throw error;
-// })
+// create the saga middleware
+const sagaMiddleware = createSagaMiddleware()
 
 const rootReducer = combineReducers({ searchRobots, requestRobots })
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware, logger));
+
+// then run the saga
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(<Provider store={store}>
                     <App />
